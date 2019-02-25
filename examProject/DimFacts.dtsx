@@ -1,0 +1,2329 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/16/2018 6:15:45 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-MHI4THC"
+  DTS:CreatorName="DESKTOP-MHI4THC\BLESSY"
+  DTS:DTSID="{90879063-CCA1-4B21-9377-E189C0CEAE4F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.0900.40"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="DimFacts"
+  DTS:PackageType="5"
+  DTS:VersionBuild="31"
+  DTS:VersionGUID="{D50619E0-2540-45E8-89D0-205CA845563C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{14070A55-5A34-4609-A1BE-46FCDF4F4A0E}"
+      DTS:ObjectName="LocalHost.BIDWProject">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=BIDWProject;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.BIProject]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{58551A0E-4945-4C97-8D7E-017E0E9EF2C3}"
+      DTS:ObjectName="LocalHost.BIProject">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=BIProject;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Facts Dimension"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CF92827E-967B-4A97-8D0A-6BCE01F9B2A7}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Facts Dimension"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Facts Dimension\Customer Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Customer Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[DimCustomer]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[DimCustomer]) [refTable]
+where [refTable].[CustomerID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CustomerKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CustomerID" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Coverage" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Education" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EmploymentStatus" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Gender" dataType="DT_WSTR" length="1" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LocationCode" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MaritalStatus" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LocationKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[customerID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Facts Dimension\Customer Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Facts Dimension\Customer Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Customer Lookup.Inputs[Lookup Input].Columns[customerID]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="customerID"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[customerID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CustomerID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Customer Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Match Output].Columns[CustomerKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Match Output].Columns[CustomerKey]"
+                      name="CustomerKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CustomerKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Customer Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Facts Dimension\Customer Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Facts Dimension\Date Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Date Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[DimDate]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[DimDate]) [refTable]
+where [refTable].[dDate] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="dDateKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="dDate" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="dYear" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="dQuarter" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="dMonth" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="dDayOfWeek" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[EffectiveToDate]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Facts Dimension\Date Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Facts Dimension\Date Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Date Lookup.Inputs[Lookup Input].Columns[EffectiveToDate]"
+                      cachedDataType="dbDate"
+                      cachedName="EffectiveToDate"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[EffectiveToDate]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">dDate</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Date Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Match Output].Columns[dDateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Match Output].Columns[dDateKey]"
+                      name="dDateKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">dDateKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Date Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Facts Dimension\Date Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Facts Dimension\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load Facts Dimension\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Derived Column.Inputs[Derived Column Input].Columns[NumberOfPolicies]"
+                      cachedDataType="i4"
+                      cachedName="NumberOfPolicies"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumberOfPolicies]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Derived Column.Inputs[Derived Column Input].Columns[TotalClaimAmount]"
+                      cachedDataType="numeric"
+                      cachedName="TotalClaimAmount"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[TotalClaimAmount]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load Facts Dimension\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Output].Columns[AverageClaimPerPolicy]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Output].Columns[AverageClaimPerPolicy]"
+                      name="AverageClaimPerPolicy"
+                      precision="29"
+                      scale="13"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[TotalClaimAmount]} / #{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumberOfPolicies]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TotalClaimAmount / NumberOfPolicies</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load Facts Dimension\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Facts Dimension\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimFact]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Facts Dimension\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Income]"
+                      cachedDataType="numeric"
+                      cachedName="Income"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Income]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Income]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MonthlyPremiumAuto]"
+                      cachedDataType="i4"
+                      cachedName="MonthlyPremiumAuto"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MonthlyPremiumAuto]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthlyPremiumAuto]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MonthsSinceLastClaim]"
+                      cachedDataType="i4"
+                      cachedName="MonthsSinceLastClaim"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MonthsSinceLastClaim]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthsSinceLastClaim]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MonthsSincePolicyInception]"
+                      cachedDataType="i4"
+                      cachedName="MonthsSincePolicyInception"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MonthsSincePolicyInception]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthsSincePolicyInception]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NumberOfPolicies]"
+                      cachedDataType="i4"
+                      cachedName="NumberOfPolicies"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NumberOfPolicies]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumberOfPolicies]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TotalClaimAmount]"
+                      cachedDataType="numeric"
+                      cachedName="TotalClaimAmount"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalClaimAmount]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[TotalClaimAmount]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CustomerKey]"
+                      cachedDataType="i4"
+                      cachedName="CustomerKey"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerKey]"
+                      lineageId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Match Output].Columns[CustomerKey]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PolicyKey]"
+                      cachedDataType="i4"
+                      cachedName="PolicyKey"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PolicyKey]"
+                      lineageId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Match Output].Columns[PolicyKey]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VehicleKey]"
+                      cachedDataType="i4"
+                      cachedName="VehicleKey"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VehicleKey]"
+                      lineageId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Match Output].Columns[VehicleKey]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SalesChannelKey]"
+                      cachedDataType="i4"
+                      cachedName="SalesChannelKey"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalesChannelKey]"
+                      lineageId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Match Output].Columns[SalesChannelKey]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[dDateKey]"
+                      cachedDataType="i4"
+                      cachedName="dDateKey"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                      lineageId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Match Output].Columns[dDateKey]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NumberOfOpenComplaints]"
+                      cachedDataType="i4"
+                      cachedName="NumberOfOpenComplaints"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NumberOfComplaints]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumberOfOpenComplaints]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LifetimeValue]"
+                      cachedDataType="numeric"
+                      cachedName="LifetimeValue"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerLifetimeValue]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[LifetimeValue]" />
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AverageClaimPerPolicy]"
+                      cachedDataType="numeric"
+                      cachedName="AverageClaimPerPolicy"
+                      cachedPrecision="29"
+                      cachedScale="13"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AveragClaimPerPolicy]"
+                      lineageId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Output].Columns[AverageClaimPerPolicy]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerKey]"
+                      dataType="i4"
+                      name="CustomerKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PolicyKey]"
+                      dataType="i4"
+                      name="PolicyKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                      dataType="i4"
+                      name="DateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VehicleKey]"
+                      dataType="i4"
+                      name="VehicleKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalesChannelKey]"
+                      dataType="i4"
+                      name="SalesChannelKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MonthlyPremiumAuto]"
+                      dataType="i4"
+                      name="MonthlyPremiumAuto" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MonthsSinceLastClaim]"
+                      dataType="i4"
+                      name="MonthsSinceLastClaim" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MonthsSincePolicyInception]"
+                      dataType="i4"
+                      name="MonthsSincePolicyInception" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NumberOfComplaints]"
+                      dataType="i4"
+                      name="NumberOfComplaints" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NumberOfPolicies]"
+                      dataType="i4"
+                      name="NumberOfPolicies" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalClaimAmount]"
+                      dataType="numeric"
+                      name="TotalClaimAmount"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerLifetimeValue]"
+                      dataType="numeric"
+                      name="CustomerLifetimeValue"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AveragClaimPerPolicy]"
+                      dataType="numeric"
+                      name="AveragClaimPerPolicy"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Income]"
+                      dataType="numeric"
+                      name="Income"
+                      precision="18"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Facts Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Facts Dimension\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[CustomerValueAnalysis]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT customerID
+      ,Coverage
+      ,Education
+      ,EmploymentStatus
+      ,Gender
+      ,LocationCode
+      ,MaritalStatus
+      ,State
+  FROM CustomerValueAnalysis</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Facts Dimension\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIProject]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[customerID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[customerID]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[customerID]"
+                      name="customerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Coverage]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Coverage]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Coverage]"
+                      name="Coverage"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Education]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Education]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Education]"
+                      name="Education"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmploymentStatus]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EmploymentStatus]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmploymentStatus]"
+                      name="EmploymentStatus"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Gender]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Gender]"
+                      length="1"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Gender]"
+                      name="Gender"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[LocationCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LocationCode]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[LocationCode]"
+                      name="LocationCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MaritalStatus]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MaritalStatus]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MaritalStatus]"
+                      name="MaritalStatus"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[State]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[LifetimeValue]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LifetimeValue]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[LifetimeValue]"
+                      name="LifetimeValue"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Response]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Response]"
+                      length="5"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Response]"
+                      name="Response"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[EffectiveToDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EffectiveToDate]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[EffectiveToDate]"
+                      name="EffectiveToDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Income]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Income]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[Income]"
+                      name="Income"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthlyPremiumAuto]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MonthlyPremiumAuto]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthlyPremiumAuto]"
+                      name="MonthlyPremiumAuto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthsSinceLastClaim]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MonthsSinceLastClaim]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthsSinceLastClaim]"
+                      name="MonthsSinceLastClaim"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthsSincePolicyInception]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MonthsSincePolicyInception]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[MonthsSincePolicyInception]"
+                      name="MonthsSincePolicyInception"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumberOfOpenComplaints]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumberOfOpenComplaints]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumberOfOpenComplaints]"
+                      name="NumberOfOpenComplaints"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumberOfPolicies]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumberOfPolicies]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumberOfPolicies]"
+                      name="NumberOfPolicies"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PolicyType]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyType]"
+                      name="PolicyType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[cusPolicy]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cusPolicy]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[cusPolicy]"
+                      name="cusPolicy"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[RenewOfferType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RenewOfferType]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[RenewOfferType]"
+                      name="RenewOfferType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalesChannel]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SalesChannel]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalesChannel]"
+                      name="SalesChannel"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[TotalClaimAmount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TotalClaimAmount]"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[TotalClaimAmount]"
+                      name="TotalClaimAmount"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleClass]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VehicleClass]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleClass]"
+                      name="VehicleClass"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleSize]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VehicleSize]"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleSize]"
+                      name="VehicleSize"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[customerID]"
+                      dataType="wstr"
+                      length="45"
+                      name="customerID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Coverage]"
+                      dataType="wstr"
+                      length="45"
+                      name="Coverage" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Education]"
+                      dataType="wstr"
+                      length="45"
+                      name="Education" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EmploymentStatus]"
+                      dataType="wstr"
+                      length="45"
+                      name="EmploymentStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Gender]"
+                      dataType="wstr"
+                      length="1"
+                      name="Gender" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LocationCode]"
+                      dataType="wstr"
+                      length="45"
+                      name="LocationCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MaritalStatus]"
+                      dataType="wstr"
+                      length="45"
+                      name="MaritalStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      dataType="wstr"
+                      length="45"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LifetimeValue]"
+                      dataType="numeric"
+                      name="LifetimeValue"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Response]"
+                      dataType="wstr"
+                      length="5"
+                      name="Response" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EffectiveToDate]"
+                      dataType="dbDate"
+                      name="EffectiveToDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Income]"
+                      dataType="numeric"
+                      name="Income"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MonthlyPremiumAuto]"
+                      dataType="i4"
+                      name="MonthlyPremiumAuto" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MonthsSinceLastClaim]"
+                      dataType="i4"
+                      name="MonthsSinceLastClaim" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[MonthsSincePolicyInception]"
+                      dataType="i4"
+                      name="MonthsSincePolicyInception" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumberOfOpenComplaints]"
+                      dataType="i4"
+                      name="NumberOfOpenComplaints" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumberOfPolicies]"
+                      dataType="i4"
+                      name="NumberOfPolicies" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PolicyType]"
+                      dataType="wstr"
+                      length="45"
+                      name="PolicyType" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cusPolicy]"
+                      dataType="wstr"
+                      length="45"
+                      name="cusPolicy" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RenewOfferType]"
+                      dataType="wstr"
+                      length="45"
+                      name="RenewOfferType" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SalesChannel]"
+                      dataType="wstr"
+                      length="45"
+                      name="SalesChannel" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TotalClaimAmount]"
+                      dataType="numeric"
+                      name="TotalClaimAmount"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VehicleClass]"
+                      dataType="wstr"
+                      length="45"
+                      name="VehicleClass" />
+                    <externalMetadataColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VehicleSize]"
+                      dataType="wstr"
+                      length="45"
+                      name="VehicleSize" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[customerID]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[customerID]"
+                      name="customerID" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Coverage]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Coverage]"
+                      name="Coverage" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LifetimeValue]"
+                      dataType="numeric"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LifetimeValue]"
+                      name="LifetimeValue"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Response]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Response]"
+                      name="Response" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Education]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Education]"
+                      name="Education" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EmploymentStatus]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EmploymentStatus]"
+                      name="EmploymentStatus" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EffectiveToDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EffectiveToDate]"
+                      name="EffectiveToDate" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Gender]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Gender]"
+                      name="Gender" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LocationCode]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LocationCode]"
+                      name="LocationCode" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Income]"
+                      dataType="numeric"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Income]"
+                      name="Income"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MaritalStatus]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MaritalStatus]"
+                      name="MaritalStatus" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[State]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MonthlyPremiumAuto]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MonthlyPremiumAuto]"
+                      name="MonthlyPremiumAuto" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MonthsSinceLastClaim]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MonthsSinceLastClaim]"
+                      name="MonthsSinceLastClaim" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MonthsSincePolicyInception]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[MonthsSincePolicyInception]"
+                      name="MonthsSincePolicyInception" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumberOfOpenComplaints]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumberOfOpenComplaints]"
+                      name="NumberOfOpenComplaints" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumberOfPolicies]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumberOfPolicies]"
+                      name="NumberOfPolicies" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PolicyType]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PolicyType]"
+                      name="PolicyType" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cusPolicy]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cusPolicy]"
+                      name="cusPolicy" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RenewOfferType]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RenewOfferType]"
+                      name="RenewOfferType" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SalesChannel]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SalesChannel]"
+                      name="SalesChannel" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TotalClaimAmount]"
+                      dataType="numeric"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TotalClaimAmount]"
+                      name="TotalClaimAmount"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VehicleClass]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VehicleClass]"
+                      name="VehicleClass" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VehicleSize]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VehicleSize]"
+                      name="VehicleSize" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Facts Dimension\Policy Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Policy Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[DimPolicy]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[DimPolicy]) [refTable]
+where [refTable].[PolicyType] = ? and [refTable].[Policy] = ? and [refTable].[RenewOfferType] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PolicyKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Policy" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PolicyType" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RenewOfferType" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyType]};#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[cusPolicy]};#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[RenewOfferType]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Facts Dimension\Policy Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Facts Dimension\Policy Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Policy Lookup.Inputs[Lookup Input].Columns[cusPolicy]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="cusPolicy"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[cusPolicy]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Policy</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Policy Lookup.Inputs[Lookup Input].Columns[PolicyType]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="PolicyType"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyType]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PolicyType</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Policy Lookup.Inputs[Lookup Input].Columns[RenewOfferType]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="RenewOfferType"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[RenewOfferType]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">RenewOfferType</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Policy Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Match Output].Columns[PolicyKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Match Output].Columns[PolicyKey]"
+                      name="PolicyKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">PolicyKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Policy Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Facts Dimension\Policy Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Facts Dimension\Sales Channel Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Sales Channel Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[DimSaleChannel]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[DimSaleChannel]) [refTable]
+where [refTable].[SalesChannel] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SalesChannelKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SalesChannel" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalesChannel]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Facts Dimension\Sales Channel Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Facts Dimension\Sales Channel Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Sales Channel Lookup.Inputs[Lookup Input].Columns[SalesChannel]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="SalesChannel"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[SalesChannel]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SalesChannel</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Sales Channel Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Match Output].Columns[SalesChannelKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Match Output].Columns[SalesChannelKey]"
+                      name="SalesChannelKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SalesChannelKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Sales Channel Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Facts Dimension\Sales Channel Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Facts Dimension\Vehicle Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Vehicle Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[DimVehicle]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[DimVehicle]) [refTable]
+where [refTable].[VehicleClass] = ? and [refTable].[VehicleSize] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="VehicleKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VehicleClass" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VehicleSize" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleClass]};#{Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleSize]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Facts Dimension\Vehicle Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Facts Dimension\Vehicle Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Vehicle Lookup.Inputs[Lookup Input].Columns[VehicleClass]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="VehicleClass"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleClass]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VehicleClass</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Facts Dimension\Vehicle Lookup.Inputs[Lookup Input].Columns[VehicleSize]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="VehicleSize"
+                      lineageId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleSize]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VehicleSize</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Vehicle Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Match Output].Columns[VehicleKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Match Output].Columns[VehicleKey]"
+                      name="VehicleKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">VehicleKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Facts Dimension\Vehicle Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Facts Dimension\Vehicle Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Facts Dimension.Paths[Derived Column Output]"
+              endId="Package\Load Facts Dimension\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Load Facts Dimension\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load Facts Dimension.Paths[Lookup Match Output]"
+              endId="Package\Load Facts Dimension\Date Lookup.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Facts Dimension\Customer Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Facts Dimension.Paths[Lookup Match Output1]"
+              endId="Package\Load Facts Dimension\Policy Lookup.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Facts Dimension\Date Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Facts Dimension.Paths[Lookup Match Output2]"
+              endId="Package\Load Facts Dimension\Vehicle Lookup.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Facts Dimension\Policy Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Facts Dimension.Paths[Lookup Match Output3]"
+              endId="Package\Load Facts Dimension\Sales Channel Lookup.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Facts Dimension\Vehicle Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Facts Dimension.Paths[Lookup Match Output4]"
+              endId="Package\Load Facts Dimension\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Facts Dimension\Sales Channel Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Facts Dimension.Paths[OLE DB Source Output]"
+              endId="Package\Load Facts Dimension\Customer Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Facts Dimension\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="182.666666666667,42.6666666666667"
+          Id="Package\Load Facts Dimension"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Facts Dimension">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\Load Facts Dimension\Vehicle Lookup"
+          TopLeft="13.3333331346512,217.899998070598" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\Load Facts Dimension\OLE DB Destination"
+          TopLeft="145.833331160247,381.666663334767" />
+        <NodeLayout
+          Size="139.333333333334,42.6666666666667"
+          Id="Package\Load Facts Dimension\Date Lookup"
+          TopLeft="19.5833330415189,103.56666481475" />
+        <NodeLayout
+          Size="156.666666666667,42.6666666666667"
+          Id="Package\Load Facts Dimension\Policy Lookup"
+          TopLeft="208.333330228925,171.699997311235" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\Load Facts Dimension\OLE DB Source"
+          TopLeft="51.0833336748183,8.03333397646745" />
+        <NodeLayout
+          Size="182.666666666667,42.6666666666667"
+          Id="Package\Load Facts Dimension\Sales Channel Lookup"
+          TopLeft="217.916663419455,276.233331791361" />
+        <NodeLayout
+          Size="161.333333333334,42.6666666666667"
+          Id="Package\Load Facts Dimension\Customer Lookup"
+          TopLeft="209.583330210298,68.8999987679721" />
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\Load Facts Dimension\Derived Column"
+          TopLeft="15.8333330973984,296.466663737694" />
+        <EdgeLayout
+          Id="Package\Load Facts Dimension.Paths[OLE DB Source Output]"
+          TopLeft="201.750000341485,29.3666673098008">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="88.4999965354801,39.5333314581713"
+              Start="0,0"
+              End="88.4999965354801,32.0333314581713">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="84.4999965354801,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="84.4999965354801,0"
+                    Point2="88.4999965354801,0"
+                    Point3="88.4999965354801,4" />
+                  <mssgle:LineSegment
+                    End="88.4999965354801,32.0333314581713" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Facts Dimension.Paths[Lookup Match Output4]"
+          TopLeft="217.916663419455,303.344442902472">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-47.4166636553903,14.4555541685554"
+              Start="0,0"
+              End="-39.9166636553903,14.4555541685554">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-15.9949786498634,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-15.9949786498634,0"
+                    Point2="-19.9949786498634,0"
+                    Point3="-19.9949786498634,4" />
+                  <mssgle:LineSegment
+                    End="-19.9949786498634,10.4555541685554" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-19.9949786498634,10.4555541685554"
+                    Point2="-19.9949786498634,14.4555541685554"
+                    Point3="-23.9949786498634,14.4555541685554" />
+                  <mssgle:LineSegment
+                    End="-39.9166636553903,14.4555541685554" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-68.1863653686134,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Facts Dimension.Paths[Lookup Match Output3]"
+          TopLeft="163.999999801318,245.011109181709">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="53.9166636181375,46.7777781652082"
+              Start="0,0"
+              End="46.4166636181375,46.7777781652082">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="22.9583318090688,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.9583318090688,0"
+                    Point2="26.9583318090688,0"
+                    Point3="26.9583318090688,4" />
+                  <mssgle:LineSegment
+                    End="26.9583318090688,42.7777781652082" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.9583318090688,42.7777781652082"
+                    Point2="26.9583318090688,46.7777781652082"
+                    Point3="30.9583318090688,46.7777781652082" />
+                  <mssgle:LineSegment
+                    End="46.4166636181375,46.7777781652082" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-21.2330549096812,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Facts Dimension.Paths[Lookup Match Output2]"
+          TopLeft="208.333330228925,198.811108422346">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-44.3333304276068,34.6444452038075"
+              Start="0,0"
+              End="-36.8333304276068,34.6444452038075">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.1666652138034,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.1666652138034,0"
+                    Point2="-22.1666652138034,0"
+                    Point3="-22.1666652138034,4" />
+                  <mssgle:LineSegment
+                    End="-22.1666652138034,30.6444452038075" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.1666652138034,30.6444452038075"
+                    Point2="-22.1666652138034,34.6444452038075"
+                    Point3="-26.1666652138034,34.6444452038075" />
+                  <mssgle:LineSegment
+                    End="-36.8333304276068,34.6444452038075" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-70.3580519325534,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Facts Dimension.Paths[Lookup Match Output1]"
+          TopLeft="89.2499997081856,146.233331481417">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="197.416663854072,25.4666658298175"
+              Start="0,0"
+              End="197.416663854072,17.9666658298175">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.73333291490874" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.73333291490874"
+                    Point2="0,12.7333329149087"
+                    Point3="4,12.7333329149087" />
+                  <mssgle:LineSegment
+                    End="193.416663854072,12.7333329149087" />
+                  <mssgle:CubicBezierSegment
+                    Point1="193.416663854072,12.7333329149087"
+                    Point2="197.416663854072,12.7333329149087"
+                    Point3="197.416663854072,16.7333329149087" />
+                  <mssgle:LineSegment
+                    End="197.416663854072,17.9666658298175" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="50.5169452082862,17.7333329149087,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Facts Dimension.Paths[Lookup Match Output]"
+          TopLeft="209.583330210298,90.2333321013054">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-50.6666638354462,34.6666660467783"
+              Start="0,0"
+              End="-43.1666638354462,34.6666660467783">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-21.3333319177231,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-21.3333319177231,0"
+                    Point2="-25.3333319177231,0"
+                    Point3="-25.3333319177231,4" />
+                  <mssgle:LineSegment
+                    End="-25.3333319177231,30.6666660467783" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-25.3333319177231,30.6666660467783"
+                    Point2="-25.3333319177231,34.6666660467783"
+                    Point3="-29.3333319177231,34.6666660467783" />
+                  <mssgle:LineSegment
+                    End="-43.1666638354462,34.6666660467783" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-73.5247186364731,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Facts Dimension.Paths[Derived Column Output]"
+          TopLeft="93.1666664307317,339.133330404361">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="138.666664729516,42.5333329304062"
+              Start="0,0"
+              End="138.666664729516,35.0333329304062">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.2666664652031" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.2666664652031"
+                    Point2="0,21.2666664652031"
+                    Point3="4,21.2666664652031" />
+                  <mssgle:LineSegment
+                    End="134.666664729516,21.2666664652031" />
+                  <mssgle:CubicBezierSegment
+                    Point1="134.666664729516,21.2666664652031"
+                    Point2="138.666664729516,21.2666664652031"
+                    Point3="138.666664729516,25.2666664652031" />
+                  <mssgle:LineSegment
+                    End="138.666664729516,35.0333329304062" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Facts Dimension\Vehicle Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimVehicle]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Facts Dimension\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Facts Dimension\Date Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimDate]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Facts Dimension\Policy Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimPolicy]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Facts Dimension\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Facts Dimension\Sales Channel Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimSaleChannel]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Facts Dimension\Customer Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimCustomer]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

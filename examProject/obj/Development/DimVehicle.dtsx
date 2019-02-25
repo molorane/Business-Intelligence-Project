@@ -1,0 +1,423 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/16/2018 6:17:36 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-MHI4THC"
+  DTS:CreatorName="DESKTOP-MHI4THC\BLESSY"
+  DTS:DTSID="{1355F7AD-1DA4-4CAC-8500-56111EAB5BA7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.0900.40"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="DimVehicle"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{1FF9A5E7-98D1-4C94-848C-7D80E475E1BE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{FAE82114-A559-4C92-9C2E-1321521BFD30}"
+      DTS:ObjectName="LocalHost.BIDWProject">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=BIDWProject;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.BIProject]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{44386947-4039-407D-BADE-A80DAA60F364}"
+      DTS:ObjectName="LocalHost.BIProject">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=BIProject;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Vehicle Dimension"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{ba604b67-eb21-4c20-b127-5e14d7cbf4c0}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Vehicle Dimension"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Vehicle Dimension\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimVehicle]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Vehicle Dimension\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIDWProject]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VehicleClass]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="VehicleClass"
+                      externalMetadataColumnId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VehicleClass]"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleClass]" />
+                    <inputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VehicleSize]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="VehicleSize"
+                      externalMetadataColumnId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VehicleSize]"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleSize]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VehicleKey]"
+                      dataType="i4"
+                      name="VehicleKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VehicleClass]"
+                      dataType="wstr"
+                      length="45"
+                      name="VehicleClass" />
+                    <externalMetadataColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VehicleSize]"
+                      dataType="wstr"
+                      length="45"
+                      name="VehicleSize" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Vehicle Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Vehicle Dimension\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[CustomerValueAnalysis]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT DISTINCT VehicleClass,VehicleSize
+  FROM CustomerValueAnalysis</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Vehicle Dimension\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.BIProject]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.BIProject]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleClass]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VehicleClass]"
+                      length="45"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleClass]"
+                      name="VehicleClass"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleSize]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VehicleSize]"
+                      length="45"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].Columns[VehicleSize]"
+                      name="VehicleSize"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VehicleClass]"
+                      dataType="wstr"
+                      length="45"
+                      name="VehicleClass" />
+                    <externalMetadataColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VehicleSize]"
+                      dataType="wstr"
+                      length="45"
+                      name="VehicleSize" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VehicleClass]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VehicleClass]"
+                      name="VehicleClass" />
+                    <outputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VehicleSize]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VehicleSize]"
+                      name="VehicleSize" />
+                    <outputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Vehicle Dimension.Paths[OLE DB Source Output]"
+              endId="Package\Load Vehicle Dimension\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Vehicle Dimension\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="192,42.6666666666667"
+          Id="Package\Load Vehicle Dimension"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Vehicle Dimension">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\Load Vehicle Dimension\OLE DB Source"
+          TopLeft="51.5000003352761,18.4333337905009" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\Load Vehicle Dimension\OLE DB Destination"
+          TopLeft="161.250000378738,105.93333390673" />
+        <EdgeLayout
+          Id="Package\Load Vehicle Dimension.Paths[OLE DB Source Output]"
+          TopLeft="126.833333668609,61.1000004571676">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="120.416666710129,44.8333334495624"
+              Start="0,0"
+              End="120.416666710129,37.3333334495624">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.4166667247812" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.4166667247812"
+                    Point2="0,22.4166667247812"
+                    Point3="4,22.4166667247812" />
+                  <mssgle:LineSegment
+                    End="116.416666710129,22.4166667247812" />
+                  <mssgle:CubicBezierSegment
+                    Point1="116.416666710129,22.4166667247812"
+                    Point2="120.416666710129,22.4166667247812"
+                    Point3="120.416666710129,26.4166667247812" />
+                  <mssgle:LineSegment
+                    End="120.416666710129,37.3333334495624" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Vehicle Dimension\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Vehicle Dimension\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
